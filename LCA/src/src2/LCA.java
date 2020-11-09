@@ -32,6 +32,14 @@ public class LCA
 	int findLCAInternal(Node root, int n1, int n2) { 
 
 		if (!findPath(root, n1, path1) || !findPath(root, n2, path2)) { 
+			if (path1.size() == 0 && path2.size() == 0) {
+				if (!path1.contains(n1) && !path2.contains(n2)) {
+					System.out.println("These nodes do not exist in the tree.");
+				}
+				else {
+					System.out.println("The tree is empty.");
+				}
+			}
 			System.out.println((path1.size() > 0) ? "n1 is present" : "n1 is missing"); 
 			System.out.println((path2.size() > 0) ? "n2 is present" : "n2 is missing"); 
 			return -1; 
@@ -39,8 +47,6 @@ public class LCA
 
 		int i; 
 		for (i = 0; i < path1.size() && i < path2.size(); i++) { 
-			
-		// System.out.println(path1.get(i) + " " + path2.get(i)); 
 			if (!path1.get(i).equals(path2.get(i))) 
 				break; 
 		} 
@@ -76,7 +82,6 @@ public class LCA
 		// If not present in subtree rooted with root, remove root from 
 		// path[] and return false 
 		path.remove(path.size()-1); 
-
 		return false; 
 	} 
 
@@ -99,4 +104,4 @@ public class LCA
 	
 	} 
 } 
-// This code is contributed by Sreenivasulu Rayanki. 
+
