@@ -39,6 +39,7 @@ public class LCA
 				else {
 					System.out.println("The tree is empty.");
 				}
+
 			}
 			System.out.println((path1.size() > 0) ? "n1 is present" : "n1 is missing"); 
 			System.out.println((path2.size() > 0) ? "n2 is present" : "n2 is missing"); 

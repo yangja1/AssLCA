@@ -39,32 +39,6 @@ public class LCATest {
 		assertNotEquals(9, tree.findLCA(1, 8));
 	}
 
-	/*@Test // as the findLCA function already runs the findLCAInternal function,
-	// there should be no errors in the findLCAInternal function.
-	public void testFindLCAInternal() {
-		LCA tree = new LCA();
-		tree.root = new Node(53);
-		tree.root.left = new Node(61);
-		tree.root.right = new Node(29);
-		tree.root.left.left = new Node(45);
-		tree.root.left.right = new Node(73);
-		tree.root.right.left = new Node(31);
-		tree.root.right.right = new Node(80);
-		/*
-		 			    53 
-		 				/ \ 
-		  			61      29 
-		  			/ \     / \ 
-		  		  45   73 31   80
-		 */
-		/*assertEquals(53, tree.findLCAInternal(tree.root, 53, 31));
-		assertEquals(53, tree.findLCAInternal(tree.root, 29, 73));
-		assertEquals(53,tree.findLCAInternal(tree.root.left, 45, 73));
-		assertNotEquals(61,tree.findLCAInternal(tree.root,80,31));
-		assertNotEquals(80,tree.findLCAInternal(tree.root, 29, 80));
-		assertNotEquals(61, tree.findLCAInternal(tree.root, 31, 73));
-	}*/
-
 	@Test
 	public void testFindPath() {
 		LCA tree = new LCA();
@@ -84,15 +58,70 @@ public class LCATest {
 		 		  / \ / \ 
 		 		38 94 93 36
 		 */
-		// java.lang.Error: Unresolved compilation problems:
-		// The method assertTrue(boolean) is ambiguous for the type LCATest
-		//the above error was fixed by importing assertTrue separately
 		assertTrue(tree.findPath(tree.root, 35, path));
 		assertTrue(tree.findPath(tree.root, 93, path));
 		assertTrue(tree.findPath(tree.root, 36, path));
 		assertFalse(tree.findPath(tree.root, 3, path));
 		assertFalse(tree.findPath(tree.root, 245, path));
 		assertFalse(tree.findPath(tree.root, 0, path));
+	}
+	
+	@Test
+	public void testEmptyTree() {
+		LCA tree = new LCA();
+		assertEquals("LCA of empty tree:", -1, tree.findLCA(0, 0));
+	}
+	
+	@Test
+	public void testOneNodeTree() {
+		LCA tree = new LCA();
+		tree.root = new Node(1);
+		assertEquals("LCA of a one node tree:", -1, tree.findLCA(1, 0));
+	}
+	
+	@Test
+	public void testNonExistentNode() {
+		LCA tree = new LCA();
+		tree.root = new Node(18);
+		tree.root.left = new Node(35);
+		tree.root.right = new Node(86);
+		tree.root.left.left = new Node(38);
+		tree.root.left.right = new Node(94);
+		tree.root.right.left = new Node(93);
+		tree.root.right.right = new Node(36);
+		/*
+		 	   18 
+			   / \ 
+	   		  35 86 
+	  		 / \ / \ 
+			38 94 93 36
+		 */
+		assertEquals("LCA of 72 and 91", -1, tree.findLCA(72, 91));
+	   	assertEquals("LCA of 18 and 109", -1, tree.findLCA(18, 109));
+	}
+	
+	
+	@Test
+	public void testSameNodes() {
+		LCA tree = new LCA();
+		tree.root = new Node(9);
+		tree.root.left = new Node(9);
+		tree.root.right = new Node(9);
+		tree.root.left.left = new Node(9);
+		tree.root.left.right = new Node(9);
+		tree.root.right.left = new Node(9);
+		tree.root.right.right = new Node(9);
+		assertEquals("LCA of 9 and 9: ", 9, tree.findLCA(9, 9));
+	}
+	
+	@Test 
+	public void unevenTree() { 
+		LCA tree = new LCA();
+		tree.root = new Node(1);
+		tree.root.right = new Node(2);
+		tree.root.right.right = new Node(3);
+		assertEquals("LCA of uneven tree:", 2, tree.findLCA(2, 3));	
+		assertEquals("LCA of uneven tree:", 1, tree.findLCA(3, 1));
 	}
 
 }
